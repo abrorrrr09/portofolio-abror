@@ -128,3 +128,7 @@ nav a.on { color: #1a120b; font-weight: 600; }
 @keyframes trfade { to { opacity: 1; } }
 @keyframes trup { from { opacity: 0; transform: translateY(40px); filter: blur(10px); } to { opacity: 1; transform: none; filter: blur(0); } }
 @keyframes trgrow { to { transform: scaleX(1); } }
+/* sembunyikan layar transisi saat tidak dipakai (perbaikan tampilan di HP) */
+.tr { visibility: hidden; }
+.tr.in, .tr.out { visibility: visible; }
+html { background: #050505; }
