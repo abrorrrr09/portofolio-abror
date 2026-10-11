@@ -1,0 +1,413 @@
+.hm-sec {
+  --hm-text: #f3ece4;
+  --hm-muted: #a89c8f;
+  --hm-accent: #c9a27a;
+  --hm-line: rgba(255, 255, 255, 0.14);
+  --hm-dark: #1a120b;
+
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 110px 24px 64px;
+  background: transparent;
+  color: var(--hm-text);
+}
+
+.hm-sec *,
+.hm-sec *::before,
+.hm-sec *::after {
+  box-sizing: border-box;
+}
+
+.hm-sec p,
+.hm-sec h1,
+.hm-sec dl,
+.hm-sec dd,
+.hm-sec ul {
+  margin: 0;
+  padding: 0;
+}
+
+.hm-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  gap: 72px;
+  align-items: end;
+  margin-bottom: 72px;
+}
+
+/* ===== Muncul bertahap ===== */
+.hm-rv {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: hm-in 0.7s ease forwards;
+  animation-delay: calc(var(--d, 0) * 1s);
+}
+
+@keyframes hm-in {
+  to { opacity: 1; transform: none; }
+}
+
+/* ===== Eyebrow dengan garis memanjang ===== */
+.hm-sec .hm-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  color: var(--hm-accent);
+}
+
+.hm-tick {
+  display: block;
+  width: 0;
+  height: 1px;
+  background: var(--hm-accent);
+  animation: hm-tick 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s forwards;
+}
+
+@keyframes hm-tick {
+  to { width: 40px; }
+}
+
+.hm-eyebrow-txt {
+  opacity: 0;
+  animation: hm-in 0.7s ease 0.4s forwards;
+}
+
+/* ===== Nama: naik dari balik tirai + kilau cahaya ===== */
+.hm-sec .hm-name {
+  margin-bottom: 28px;
+  font-size: clamp(2.6rem, 7.4vw, 6rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.hm-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.hm-ln {
+  --base: #f3ece4;
+
+  display: block;
+  width: fit-content;
+  transform: translateY(105%);
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(
+    110deg,
+    var(--base) 38%,
+    #d9b27c 46%,
+    #fffaf0 50%,
+    #d9b27c 54%,
+    var(--base) 62%
+  );
+  background-size: 250% 100%;
+  background-position: 120% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  animation:
+    hm-up 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) calc(var(--i, 0) * 0.14s + 0.2s) forwards,
+    hm-kilau 6s ease-in-out calc(var(--i, 0) * 0.35s + 1.6s) infinite;
+}
+
+.hm-first .hm-ln {
+  --base: #a89c8f;
+}
+
+@keyframes hm-up {
+  to { transform: none; }
+}
+
+@keyframes hm-kilau {
+  0%, 55% { background-position: 120% 0; }
+  100%    { background-position: -20% 0; }
+}
+
+/* ===== Peran: muncul dari kabur, huruf merapat, garis tergambar ===== */
+.hm-sec .hm-role {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 10px;
+  margin-bottom: 18px;
+  font-size: 20px;
+  color: var(--hm-muted);
+}
+
+.hm-roll {
+  position: relative;
+  display: inline-block;
+  min-width: 11em;
+  height: 1.6em;
+}
+
+.hm-roll-list {
+  display: block;
+  animation: none;
+}
+
+.hm-roll-item {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  height: auto;
+  line-height: 1.6em;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--hm-accent);
+  opacity: 0;
+  animation: hm-peran 12s cubic-bezier(0.2, 0.8, 0.2, 1) infinite both;
+}
+
+.hm-roll-item:nth-child(2) { animation-delay: 3s; }
+.hm-roll-item:nth-child(3) { animation-delay: 6s; }
+.hm-roll-item:nth-child(4) { animation-delay: 9s; }
+.hm-roll-item:nth-child(5) { display: none; }
+
+.hm-roll-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.08em;
+  height: 2px;
+  background: var(--hm-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: hm-garis 12s ease infinite both;
+  animation-delay: inherit;
+}
+
+@keyframes hm-peran {
+  0%   { opacity: 0; transform: translateY(0.45em); filter: blur(8px); letter-spacing: 0.18em; }
+  5%   { opacity: 1; transform: none; filter: blur(0); letter-spacing: 0; }
+  21%  { opacity: 1; transform: none; filter: blur(0); letter-spacing: 0; }
+  26%  { opacity: 0; transform: translateY(-0.45em); filter: blur(8px); letter-spacing: -0.02em; }
+  100% { opacity: 0; transform: translateY(-0.45em); filter: blur(8px); letter-spacing: -0.02em; }
+}
+
+@keyframes hm-garis {
+  0%, 6% { transform: scaleX(0); }
+  15%    { transform: scaleX(1); }
+  100%   { transform: scaleX(1); }
+}
+
+/* Teks cadangan untuk pembaca layar (tidak terlihat) */
+.hm-sec .hm-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ===== Paragraf bio ===== */
+.hm-sec .hm-lead {
+  max-width: 500px;
+  margin-bottom: 32px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--hm-muted);
+}
+
+/* ===== Tombol ===== */
+.hm-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hm-sec .hm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 26px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  border-radius: 999px;
+  transition: background 0.25s, color 0.25s, transform 0.25s, filter 0.25s;
+}
+
+.hm-sec .hm-btn-main {
+  color: var(--hm-dark);
+  background: var(--hm-accent);
+  border: 1px solid var(--hm-accent);
+}
+
+.hm-sec .hm-btn-main:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.hm-sec .hm-btn-line {
+  color: var(--hm-text);
+  background: transparent;
+  border: 1px solid rgba(201, 162, 122, 0.55);
+}
+
+.hm-sec .hm-btn-line:hover {
+  color: var(--hm-dark);
+  background: var(--hm-accent);
+  border-color: var(--hm-accent);
+  transform: translateY(-2px);
+}
+
+.hm-sec .hm-btn:focus-visible {
+  outline: 2px solid var(--hm-text);
+  outline-offset: 3px;
+}
+
+/* ===== Profil: daftar bergaris, tanpa kartu ===== */
+.hm-ph {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding-bottom: 14px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--hm-accent);
+  border-bottom: 1px solid var(--hm-line);
+}
+
+.hm-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 0;
+  color: var(--hm-muted);
+}
+
+.hm-dot {
+  position: relative;
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #6fcf8e;
+}
+
+.hm-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #6fcf8e;
+  animation: hm-pulse 2.4s ease-out infinite;
+}
+
+@keyframes hm-pulse {
+  0%   { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+.hm-rows > div {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hm-line);
+}
+
+.hm-rows dt {
+  margin-bottom: 2px;
+  font-size: 12px;
+  color: var(--hm-muted);
+}
+
+.hm-rows dd {
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+/* ===== Angka ===== */
+.hm-strip {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  padding-top: 28px;
+}
+
+.hm-strip::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--hm-line);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: hm-draw 1.2s ease 1.4s forwards;
+}
+
+@keyframes hm-draw {
+  to { transform: scaleX(1); }
+}
+
+.hm-strip b {
+  display: block;
+  margin-bottom: 4px;
+  font-size: clamp(1.7rem, 4vw, 2.6rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.hm-strip small {
+  font-size: 0.45em;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--hm-muted);
+}
+
+.hm-strip span {
+  font-size: 14px;
+  color: var(--hm-muted);
+}
+
+/* ===== Responsif ===== */
+@media (max-width: 860px) {
+  .hm-sec { padding: 96px 16px 48px; }
+  .hm-wrap {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+}
+
+@media (max-width: 560px) {
+  .hm-strip { grid-template-columns: 1fr; gap: 18px; }
+  .hm-sec .hm-btn { width: 100%; }
+}
+
+/* ===== Untuk pengunjung yang mengurangi gerakan ===== */
+@media (prefers-reduced-motion: reduce) {
+  .hm-rv, .hm-eyebrow-txt { opacity: 1; transform: none; animation: none; }
+  .hm-ln {
+    transform: none;
+    animation: none;
+    background: none;
+    color: var(--base);
+    -webkit-text-fill-color: var(--base);
+  }
+  .hm-tick { width: 40px; animation: none; }
+  .hm-roll-item { animation: none; }
+  .hm-roll-item:first-child { opacity: 1; }
+  .hm-roll-item::after { animation: none; transform: scaleX(1); }
+  .hm-strip::before { transform: none; animation: none; }
+  .hm-dot::after { animation: none; }
+}

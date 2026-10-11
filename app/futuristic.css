@@ -1,0 +1,16 @@
+/* ===== TAMBAHAN LOADING: PARTIKEL, BINGKAI, KILATAN ===== */
+.ln-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ln-num { filter: drop-shadow(0 0 24px #c9a37a66); }
+
+.ln-c { position: absolute; width: 36px; height: 36px; border: 2px solid var(--brown); opacity: .6; z-index: 2; }
+.ln-c.tl { top: 24px; left: 24px; border-right: 0; border-bottom: 0; }
+.ln-c.tr { top: 24px; right: 24px; border-left: 0; border-bottom: 0; }
+.ln-c.bl { bottom: 24px; left: 24px; border-right: 0; border-top: 0; }
+.ln-c.br { bottom: 24px; right: 24px; border-left: 0; border-top: 0; }
+.ln.open .ln-c { opacity: 0; transition: opacity .3s; }
+
+.ln-flash { position: absolute; left: 50%; top: 50%; width: 0; height: 0; z-index: 3; border-radius: 50%;
+  transform: translate(-50%, -50%); pointer-events: none; opacity: 0;
+  background: radial-gradient(circle, #fff6e6, #c9a37a 40%, transparent 70%); }
+.ln.open .ln-flash { animation: flash .7s ease-out .15s forwards; }
+@keyframes flash { 0% { width: 0; height: 0; opacity: 1; } 100% { width: 90vmin; height: 90vmin; opacity: 0; } }
